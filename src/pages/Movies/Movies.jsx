@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
@@ -8,37 +9,54 @@ import { SearchForm } from './components/SearchForm/SearchForm';
 import { getSearch } from 'services/fetch';
 
 const Movies = () => {
-    const [query, setQuery] = useState("");
+    // const [query, setQuery] = useState("");
+    const [searchParams, setSearchParams] = useSearchParams();
     const [movies, setMovies] = useState([]);
-    const [page, setPage] = useState(1);
+    // const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState(1);
 
+    const query = searchParams.get("query") || "";
+    const page = Number(searchParams.get("page")) || 1;
+
     const handleSubmit = (string) => {
-        setQuery(string);
-    }
+        setSearchParams({ query: string, page: 1});
+    };
 
     const handleClick = step => {
-        setPage(prev => prev + step);
+        setSearchParams({
+            query,
+            page: page + step,
+        });
     };
 
     useEffect(() => {
+        if (!searchParams.get("query")) {
+            return;
+        };
+
         try {
-            getSearch({query, page}).then(({data}) => {
+            getSearch({
+                query: searchParams.get("query"),
+                page: Number(searchParams.get("page"))
+            }).then(({data}) => {
                 setMovies(data.results);
-                setPage(data.page);
                 setTotalPage(data.total_pages);
             })
         } catch {
             Notify.failure("Oops! Something in this life went wrong... Try again later.")
         }
-    }, [query, page]);
+    }, [searchParams]);
 
     return (
         <>
             <SearchForm onSubmit={handleSubmit} />
             {movies.length > 0 && <MoviesList movies={movies} />}
-            {page !== 1 && <button type='button' onClick={()=>{handleClick(-1)}}>Previous page</button>}
-            {page !== totalPage && <button type='button' onClick={()=>{handleClick(1)}}>Next page</button>}
+            {page !== 1 &&
+                <button type='button' onClick={()=>{handleClick(-1)}}>Previous page</button>
+            }
+            {page !== totalPage &&
+                <button type='button' onClick={()=>{handleClick(1)}}>Next page</button>
+            }
         </>
     )
 };
