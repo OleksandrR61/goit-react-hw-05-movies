@@ -25,7 +25,19 @@ export const getSearch = async ({query, page}) => {
     return await themoviedbFetch.get('search/movie', {params});
 }
 
+export const getMovie = async (movieId) => {
+    const params = {
+        api_key: API_KEY,
+    };
+    
+    return await themoviedbFetch.get(`movie/${movieId}`, {params});
+}
+
 getSearch.propTypes = {
     query: PropTypes.string.isRequired,
     page: PropTypes.number.isRequired,
+};
+
+getMovie.propTypes = {
+    moviId: PropTypes.string.isRequired,
 };
