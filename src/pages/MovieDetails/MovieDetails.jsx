@@ -6,11 +6,13 @@ import { AddInfo } from './components/AddInfo/AddInfo';
 const MovieDetails = () => {
     const location = useLocation();
 
+    const locationFrom = location.state?.from ?? "/"
+
     return (
         <>
-            <Link to={location.state?.from ?? "/"}>Go back</Link>
+            <Link to={locationFrom}>Go back</Link>
             <About />
-            <AddInfo />
+            <AddInfo state={{from: locationFrom}}/>
             <Outlet />
         </>
     );

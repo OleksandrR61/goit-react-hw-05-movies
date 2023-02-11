@@ -29,7 +29,7 @@ export const getMovie = async (movieId) => {
     const params = {
         api_key: API_KEY,
     };
-    
+
     return await themoviedbFetch.get(`movie/${movieId}`, {params});
 }
 

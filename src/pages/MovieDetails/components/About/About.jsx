@@ -25,11 +25,14 @@ export const About = () => {
         <>
             {movie.title &&
                 <div className={styles.aboutBody}>
-                    <img
-                        src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
-                        alt="poster"
-                        className={styles.img}
-                    />
+                    {
+                        movie.poster_path &&
+                            <img
+                                src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
+                                alt="poster"
+                                className={styles.img}
+                            />
+                    }
                     <div>
                         <h2>{movie.title} ({String(movie.release_date).slice(0, 4)})</h2>
                         <p>User score: {Math.floor(movie.vote_average*10)}%</p>
