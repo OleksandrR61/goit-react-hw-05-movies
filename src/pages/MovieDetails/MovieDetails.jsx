@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, Outlet } from 'react-router-dom';
 
 import { About } from './components/About/About';
 import { AddInfo } from './components/AddInfo/AddInfo';
@@ -11,6 +11,7 @@ const MovieDetails = () => {
             <Link to={location.state?.from ?? "/"}>Go back</Link>
             <About />
             <AddInfo />
+            <Outlet />
         </>
     );
 };

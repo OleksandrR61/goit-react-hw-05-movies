@@ -33,11 +33,23 @@ export const getMovie = async (movieId) => {
     return await themoviedbFetch.get(`movie/${movieId}`, {params});
 }
 
+export const getMovieCast = async (movieId) => {
+    const params = {
+        api_key: API_KEY,
+    };
+    
+    return await themoviedbFetch.get(`movie/${movieId}/credits`, {params});
+}
+
 getSearch.propTypes = {
     query: PropTypes.string.isRequired,
     page: PropTypes.number.isRequired,
 };
 
 getMovie.propTypes = {
+    moviId: PropTypes.string.isRequired,
+};
+
+getMovieCast.propTypes = {
     moviId: PropTypes.string.isRequired,
 };
