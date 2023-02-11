@@ -1,3 +1,5 @@
-const Home = () => (<h2>Home</h2>);
+const Home = () => (
+    <h2>Trending today</h2>
+);
 
 export default Home;
