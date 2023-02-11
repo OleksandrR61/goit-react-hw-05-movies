@@ -20,10 +20,30 @@ export const About = () => {
             Notify.failure("Oops! Something in this life went wrong... Try again later.")
         };
     }, [movieId]);
-    
+
     return (
-        <div className={styles.aboutBody}>
-            <img src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`} alt="poster" />
-        </div>
+        <>
+            {movie.title &&
+                <div className={styles.aboutBody}>
+                    <img
+                        src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
+                        alt="poster"
+                        className={styles.img}
+                    />
+                    <div>
+                        <h2>{movie.title} ({String(movie.release_date).slice(0, 4)})</h2>
+                        <p>User score: {Math.floor(movie.vote_average*10)}%</p>
+                        <h3>Overview</h3>
+                        <p>{movie.overview}</p>
+                        <h4>Genres</h4>
+                        <ul className={styles.genres}>
+                            {movie.genres.map(genre => 
+                                <li key={genre.id} className={styles.genre}>{genre.name}</li>
+                            )}
+                        </ul>
+                    </div>
+                </div>
+            }
+        </>
     );
 };
