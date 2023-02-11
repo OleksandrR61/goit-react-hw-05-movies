@@ -13,7 +13,7 @@ const StyledNavLink = styled(NavLink)`
     }
 `;
 
-export const Layout = ({children}) => (
+const Layout = ({children}) => (
     <>
         <header className={styles.header}>
             <h1>Movies</h1>
@@ -25,6 +25,8 @@ export const Layout = ({children}) => (
         {children}
     </>
 );
+
+export default Layout;
 
 Layout.propTypes = {
     children: PropTypes.node,

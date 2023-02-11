@@ -3,16 +3,14 @@ import { useSearchParams } from 'react-router-dom';
 
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
-import { MoviesList } from 'components';
+import MoviesList from 'components/MoviesList/MoviesList';
 import { SearchForm } from './components/SearchForm/SearchForm';
 
 import { getSearch } from 'services/fetch';
 
 const Movies = () => {
-    // const [query, setQuery] = useState("");
     const [searchParams, setSearchParams] = useSearchParams();
     const [movies, setMovies] = useState([]);
-    // const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState(1);
 
     const query = searchParams.get("query") || "";

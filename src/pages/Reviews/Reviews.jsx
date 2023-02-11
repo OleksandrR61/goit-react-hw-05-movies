@@ -5,14 +5,16 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 import { getMovieReviews } from 'services/fetch';
 
-const Reviews = ({state}) => {
+const Reviews = () => {
     const [movieReviews, setMovieReviews] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
     const { movieId } = useParams();
     
     useEffect(() => {
         try {
             getMovieReviews(movieId).then(response => {
                 setMovieReviews(response.data.results);
+                setIsLoading(false);
             });
         } catch {
             Notify.failure("Oops! Something in this life went wrong... Try again later.")
@@ -20,6 +22,7 @@ const Reviews = ({state}) => {
     }, [movieId]);
 
     return (
+        !isLoading ?
         <>
             {movieReviews.length > 0 ?
                 <ul>
@@ -32,7 +35,7 @@ const Reviews = ({state}) => {
                 </ul> :
                 <p>We don't have reviews for this movie.</p>
             }
-        </>
+        </> : <p>Loading...</p>
     );
 };
 

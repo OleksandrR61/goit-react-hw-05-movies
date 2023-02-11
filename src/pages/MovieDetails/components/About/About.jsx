@@ -9,19 +9,22 @@ import styles from './About.module.css';
 
 export const About = () => {
     const [movie, setMovie] = useState({});
+    const [isLoading, setIsLoading] = useState(true)
     const { movieId } = useParams();
 
     useEffect(() => {
         try {
             getMovie(movieId).then(response => {
                 setMovie(response.data);
-            });
+                setIsLoading(false);
+            })
         } catch {
             Notify.failure("Oops! Something in this life went wrong... Try again later.")
         };
     }, [movieId]);
 
     return (
+        !isLoading ?
         <>
             {movie.title &&
                 <div className={styles.aboutBody}>
@@ -47,6 +50,6 @@ export const About = () => {
                     </div>
                 </div>
             }
-        </>
+        </> : <p>Loading...</p>
     );
 };

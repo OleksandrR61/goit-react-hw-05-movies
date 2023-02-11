@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { Link, useLocation, Outlet } from 'react-router-dom';
 
 import { About } from './components/About/About';
@@ -13,7 +14,9 @@ const MovieDetails = () => {
             <Link to={locationFrom}>Go back</Link>
             <About />
             <AddInfo state={{from: locationFrom}}/>
-            <Outlet />
+            <Suspense fallback={<p>Loading...</p>}>
+                <Outlet />
+            </Suspense>
         </>
     );
 };

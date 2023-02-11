@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
-import { MoviesList } from 'components';
+import MoviesList from 'components/MoviesList/MoviesList';
 
 import { getTrending } from 'services/fetch';
 

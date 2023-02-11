@@ -5,14 +5,16 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 import { getMovieCast } from 'services/fetch';
 
-const Cast = ({state}) => {
+const Cast = () => {
     const [movieCast, setMovieCast] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
     const { movieId } = useParams();
     
     useEffect(() => {
         try {
             getMovieCast(movieId).then(response => {
                 setMovieCast(response.data.cast);
+                setIsLoading(false);
             });
         } catch {
             Notify.failure("Oops! Something in this life went wrong... Try again later.")
@@ -20,6 +22,7 @@ const Cast = ({state}) => {
     }, [movieId]);
 
     return (
+        !isLoading ?
         <>
             {movieCast.length > 0 ?
                 <ul>
@@ -39,7 +42,7 @@ const Cast = ({state}) => {
                 </ul> :
                 <p>Sorry, we have no information about the cast</p>
             }
-        </>
+        </> : <p>Loading...</p>
     );
 };
 
