@@ -1,1 +1,3 @@
-<h1>MovieDetails</h1>
+const MovieDetails = () => (<h2>MovieDetails</h2>);;
+
+export default MovieDetails;
