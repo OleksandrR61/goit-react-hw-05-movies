@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import styles from './Layout.module.css';
 import styled from 'styled-components';
@@ -24,3 +25,7 @@ export const Layout = ({children}) => (
         {children}
     </>
 );
+
+Layout.propTypes = {
+    children: PropTypes.node,
+};
