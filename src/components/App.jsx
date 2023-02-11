@@ -1,4 +1,4 @@
-export const Movies = () => {
+export const App = () => {
   return (
     <p>Hello</p>
   );
