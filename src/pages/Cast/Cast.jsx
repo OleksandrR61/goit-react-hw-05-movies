@@ -14,8 +14,7 @@ const Cast = () => {
         try {
             getMovieCast(movieId).then(response => {
                 setMovieCast(response.data.cast);
-                setIsLoading(false);
-            });
+            }).finally(() => {setIsLoading(false);});
         } catch {
             Notify.failure("Oops! Something in this life went wrong... Try again later.")
         };

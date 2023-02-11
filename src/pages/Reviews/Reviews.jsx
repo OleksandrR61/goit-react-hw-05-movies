@@ -14,8 +14,7 @@ const Reviews = () => {
         try {
             getMovieReviews(movieId).then(response => {
                 setMovieReviews(response.data.results);
-                setIsLoading(false);
-            });
+            }).finally(() => {setIsLoading(false);});
         } catch {
             Notify.failure("Oops! Something in this life went wrong... Try again later.")
         };

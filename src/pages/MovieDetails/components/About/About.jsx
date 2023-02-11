@@ -16,8 +16,7 @@ export const About = () => {
         try {
             getMovie(movieId).then(response => {
                 setMovie(response.data);
-                setIsLoading(false);
-            })
+            }).finally(() => {setIsLoading(false);})
         } catch {
             Notify.failure("Oops! Something in this life went wrong... Try again later.")
         };
@@ -26,7 +25,7 @@ export const About = () => {
     return (
         !isLoading ?
         <>
-            {movie.title &&
+            {movie.title ?
                 <div className={styles.aboutBody}>
                     {
                         movie.poster_path &&
@@ -48,7 +47,7 @@ export const About = () => {
                             )}
                         </ul>
                     </div>
-                </div>
+                </div> : <p>Sorry, We don't have info for this movie.</p>
             }
         </> : <p>Loading...</p>
     );
