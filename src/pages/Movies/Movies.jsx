@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+
 import { MoviesList } from 'components';
+import { SearchForm } from './components/SearchForm/SearchForm';
 
 import { getSearch } from 'services/fetch';
 
@@ -10,15 +13,15 @@ const Movies = () => {
     const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState(1);
 
-    const handleChange = ({target}) => {
-        setQuery(target.value);
-    };
-
-    const handleSubmit = () => {
-        fetchMovies();
+    const handleSubmit = (string) => {
+        setQuery(string);
     }
 
-    const fetchMovies = () => {
+    const handleClick = step => {
+        setPage(prev => prev + step);
+    };
+
+    useEffect(() => {
         try {
             getSearch({query, page}).then(({data}) => {
                 setMovies(data.results);
@@ -28,17 +31,14 @@ const Movies = () => {
         } catch {
             Notify.failure("Oops! Something in this life went wrong... Try again later.")
         }
-    }
+    }, [query, page]);
 
     return (
         <>
-            <form>
-                <input type="text" value={query} onChange={handleChange}/>
-                <button type='submit'>Search</button>
-            </form>
+            <SearchForm onSubmit={handleSubmit} />
             {movies.length > 0 && <MoviesList movies={movies} />}
-            {page !== 1 && <button type='button'>Previous page</button>}
-            {page !== totalPage && <button type='button'>Next page</button>}
+            {page !== 1 && <button type='button' onClick={()=>{handleClick(-1)}}>Previous page</button>}
+            {page !== totalPage && <button type='button' onClick={()=>{handleClick(1)}}>Next page</button>}
         </>
     )
 };
