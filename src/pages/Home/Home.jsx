@@ -12,8 +12,6 @@ const Home = () => {
         })
     }, []);
 
-    console.log("Movies: ", movies);
-
     return (
         <>
             <h2>Trending today</h2>
